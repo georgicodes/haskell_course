@@ -199,9 +199,13 @@ flatten' x = foldRight (++) Nil x -- or remove x's
 -- prop> headOr x (flatMap id (y :. infinity :. Nil)) == headOr 0 y
 --
 -- prop> flatMap id (x :: List (List Int)) == flatten x
---flatMap :: (a -> List b) -> List a -> List b
---flatMap f Nil = Nil
---flatMap f (h :. t) = f h flatMap ++ f t
+flatMap ::
+  (a -> List b)
+  -> List a
+  -> List b
+flatMap f =
+  -- foldRight (\el acc -> f el ++ acc) Nil
+  foldRight ((++) . f) Nil
 
   -- f :: a -> List b
   -- h :: a
@@ -684,8 +688,8 @@ stringconcat ::
 stringconcat =
   P.concat
 
---instance P.Monad List where
-  --(>>=) =
-    --flip flatMap
-  --return =
-    --(:. Nil)
+instance P.Monad List where
+  (>>=) =
+    flip flatMap
+  return =
+    (:. Nil)
