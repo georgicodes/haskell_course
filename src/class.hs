@@ -1,10 +1,13 @@
-class Equal a where
-  eql :: a -> a -> Bool
+data Box = Box Int deriving Show
 
-instance Equal Int where
---eq :: Int -> Int -> Bool 
-  eql n m = n == m
+data Func = Func (String -> Int)
 
-instance Equal Bool where
--- eq :: Boole -> Bool -> Bool
-  eql True True == True
+data Funcy = Funcy {
+  run :: String -> Int
+}
+
+box :: Box -> Int
+box (Box n) = n
+
+func :: Func -> (String -> Int)
+func (Func f) = f
