@@ -63,7 +63,7 @@ instance Functor Optional where
 
 -- (<$>) :: (a -> b) -> f a -> f b
 -- (<$>) :: (a -> b) -> (((->) t ) a) -> (((->) t) b)
-
+-- 
 instance Functor ((->) t) where
   (<$>) =
     error "todo"
